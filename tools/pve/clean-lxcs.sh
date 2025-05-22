@@ -45,7 +45,7 @@ function clean_container() {
   header_info
   name=$(pct exec "$container" hostname)
   echo -e "${BL}[Info]${GN} Cleaning ${name} ${CL} \n"
-  pct exec "$container" -- bash -c "apt-get -y --purge autoremove && apt-get -y autoclean && bash <(curl -fsSL https://raw.githubusercontent.com/ChriRas/ProxmoxVE/main/tools/pve/clean.sh) && rm -rf /var/lib/apt/lists/* && apt-get update"
+  pct exec "$container" -- bash -c "apt-get -y --purge autoremove && apt-get -y autoclean && bash <(curl -fsSL https://raw.githubusercontent.com/ChriRas/ProxmoxVE/refs/heads/main/tools/pve/clean.sh) && rm -rf /var/lib/apt/lists/* && apt-get update"
 }
 for container in $(pct list | awk '{if(NR>1) print $1}'); do
   if [[ " ${excluded_containers[@]} " =~ " $container " ]]; then

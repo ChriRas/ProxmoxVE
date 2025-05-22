@@ -29,7 +29,7 @@ msg_ok "Installed Navidrome"
 
 read -p "${TAB3}Do you want to install filebrowser addon? (y/n) " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  bash -c "$(curl -fsSL https://raw.githubusercontent.com/ChriRas/ProxmoxVE/main/tools/addon/filebrowser.sh)"
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/ChriRas/ProxmoxVE/refs/heads/main/tools/addon/filebrowser.sh)"
 fi
 
 motd_ssh
