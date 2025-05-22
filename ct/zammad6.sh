@@ -6,7 +6,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/ChriRas/ProxmoxVE/refs/hea
 # Source: https://zammad.com
 
 # Modified for Zammad 6.0.0 installation
-APP="Zammad60"
+APP="Zammad6"
 var_tags="${var_tags:-webserver;ticket-system;zammad-6.0}"
 var_disk="${var_disk:-10}"
 var_cpu="${var_cpu:-2}"

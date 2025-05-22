@@ -15,7 +15,7 @@ update_os
 
 # Version detection based on APP name
 case "$APP" in
-    "Zammad60"|"Zammad-6.0"|"Zammad6.0")
+    "Zammad6"|"Zammad-6.0"|"Zammad6.0")
         ZAMMAD_VERSION="6.0.0"
         msg_info "Installing Zammad Version 6.0.0"
         ;;
