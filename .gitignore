@@ -6,6 +6,7 @@ Thumbs.db
 !.vscode/
 .vscode/*.workspace
 .vscode/*.tmp
+.idea/
 
 # Log and Cache files
 logs/

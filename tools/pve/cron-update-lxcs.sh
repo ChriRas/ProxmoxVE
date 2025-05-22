@@ -25,7 +25,7 @@ add() {
     *) echo "Please answer yes or no." ;;
     esac
   done
-  sh -c '(crontab -l -u root 2>/dev/null; echo "0 0 * * 0 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/update-lxcs-cron.sh)\" >>/var/log/update-lxcs-cron.log 2>/dev/null") | crontab -u root -'
+  sh -c '(crontab -l -u root 2>/dev/null; echo "0 0 * * 0 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/ChriRas/ProxmoxVE/main/tools/pve/update-lxcs-cron.sh)\" >>/var/log/update-lxcs-cron.log 2>/dev/null") | crontab -u root -'
   clear
   echo -e "\n To view Cron Update LXCs logs: cat /var/log/update-lxcs-cron.log"
 }
