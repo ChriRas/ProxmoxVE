@@ -13,17 +13,8 @@ setting_up_container
 network_check
 update_os
 
-# Version detection based on APP name
-case "$APP" in
-    "Zammad6"|"Zammad-6.0"|"Zammad6.0")
-        ZAMMAD_VERSION="6.0.0"
-        msg_info "Installing Zammad Version 6.0.0"
-        ;;
-    "Zammad"|*)
-        ZAMMAD_VERSION="latest"
-        msg_info "Installing Latest Zammad Version"
-        ;;
-esac
+ZAMMAD_VERSION="6.0.0"
+msg_info "Installing Zammad Version 6.0.0"
 
 msg_info "Installing Dependencies"
 $STD apt-get install -y \
