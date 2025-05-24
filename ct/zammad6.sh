@@ -8,7 +8,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/ChriRas/ProxmoxVE/refs/hea
 # Modified for Zammad 6.0.0 installation
 APP="Zammad6"
 var_tags="${var_tags:-webserver;ticket-system;zammad-6.0}"
-var_disk="${var_disk:-10}"
+var_disk="${var_disk:-8}"
 var_cpu="${var_cpu:-2}"
 var_ram="${var_ram:-4096}"
 var_os="${var_os:-debian}"

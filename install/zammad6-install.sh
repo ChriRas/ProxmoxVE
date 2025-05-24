@@ -13,17 +13,9 @@ setting_up_container
 network_check
 update_os
 
-# Version detection based on APP name
-case "$APP" in
-    "Zammad6"|"Zammad-6.0"|"Zammad6.0")
-        ZAMMAD_VERSION="6.0.0"
-        msg_info "Installing Zammad Version 6.0.0"
-        ;;
-    "Zammad"|*)
-        ZAMMAD_VERSION="latest"
-        msg_info "Installing Latest Zammad Version"
-        ;;
-esac
+ZAMMAD_VERSION="6.0.0"
+ZAMMAD_STABLE="stable-6.0"
+msg_info "Installing Zammad Version 6.0.0"
 
 msg_info "Installing Dependencies"
 $STD apt-get install -y \
@@ -48,33 +40,26 @@ msg_ok "Setup Elasticsearch"
 
 msg_info "Installing Zammad"
 curl -fsSL https://dl.packager.io/srv/zammad/zammad/key | gpg --dearmor | sudo tee /etc/apt/keyrings/pkgr-zammad.gpg >/dev/null
-echo "deb [signed-by=/etc/apt/keyrings/pkgr-zammad.gpg] https://dl.packager.io/srv/deb/zammad/zammad/stable/debian 12 main" | sudo tee /etc/apt/sources.list.d/zammad.list >/dev/null
+echo "deb [signed-by=/etc/apt/keyrings/pkgr-zammad.gpg] https://dl.packager.io/srv/deb/zammad/zammad/${ZAMMAD_STABLE}/debian 12 main" | sudo tee /etc/apt/sources.list.d/zammad.list >/dev/null
 $STD apt-get update
 
-# Install specific version or latest
-if [ "$ZAMMAD_VERSION" != "latest" ]; then
-    msg_info "Installing Zammad version ${ZAMMAD_VERSION}"
+msg_info "Installing Zammad version ${ZAMMAD_VERSION}"
 
-    # Create apt preferences to pin version
-    cat > /etc/apt/preferences.d/zammad << EOF
+# Create apt preferences to pin version
+cat > /etc/apt/preferences.d/zammad << EOF
 Package: zammad
 Pin: version ${ZAMMAD_VERSION}*
 Pin-Priority: 1001
 EOF
 
-    # Install specific version
-    $STD apt-get -y install zammad=${ZAMMAD_VERSION}*
+# Install specific version
+$STD apt-get -y install zammad=${ZAMMAD_VERSION}*
 
-    # Create version info file
-    echo "${ZAMMAD_VERSION}" > /opt/zammad/VERSION
-    chown zammad:zammad /opt/zammad/VERSION
+# Create version info file
+echo "${ZAMMAD_VERSION}" > /opt/zammad/VERSION
+chown zammad:zammad /opt/zammad/VERSION
 
-    msg_ok "Installed Zammad ${ZAMMAD_VERSION}"
-else
-    # Install latest version
-    $STD apt-get -y install zammad
-    msg_ok "Installed Latest Zammad"
-fi
+msg_ok "Installed Zammad ${ZAMMAD_VERSION}"
 
 msg_info "Configuring Elasticsearch Integration"
 $STD zammad run rails r "Setting.set('es_url', 'http://localhost:9200')"
@@ -93,12 +78,10 @@ mkdir -p /opt/zammad-backup
 chown zammad:zammad /opt/zammad-backup
 
 # Add version info to motd if specific version was installed
-if [ "$ZAMMAD_VERSION" != "latest" ]; then
-    cat >> /etc/motd << EOF
+cat >> /etc/motd << EOF
 
 Zammad Version: ${ZAMMAD_VERSION}
 EOF
-fi
 
 motd_ssh
 customize
